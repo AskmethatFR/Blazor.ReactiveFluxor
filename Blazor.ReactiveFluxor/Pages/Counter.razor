@@ -1,0 +1,22 @@
+﻿@page "/counter"
+@using System.Reactive.Linq
+@using System.Reactive.Subjects
+@using Blazor.ReactiveFluxor.Reactive
+@using Blazor.ReactiveFluxor.Store.Counter
+@using Fluxor
+@inject IDispatcher Dispatcher
+@inject AppSelector<IState<CounterState>, CounterViewModel, CounterSelector> AppSelector
+
+<PageTitle>Counter</PageTitle>
+
+<h1>Counter</h1>
+
+<p role="status">Current count: @currentCount.CurrentCount</p>
+
+
+<button class="btn btn-primary" @onclick="() => Dispatcher.Dispatch(new IncrementCounterAction())">Increment</button>
+<button class="btn btn-primary" @onclick="() => Dispatcher.Dispatch(new DecrementCounterAction())">Decrement</button>
+
+@code {
+    private CounterViewModel currentCount => AppSelector.Select();
+}
