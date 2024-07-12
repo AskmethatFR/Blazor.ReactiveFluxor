@@ -5,16 +5,16 @@ using Microsoft.AspNetCore.Components;
 
 namespace Blazor.ReactiveFluxor.Store.Counter;
 
-public record CounterSelector : ReactiveSelector<IState<CounterState>, CounterViewModel>
+public record CounterSelector : ReactiveSelector<CounterState, CounterViewModel>
 {
     private readonly BehaviorSubject<CounterViewModel> _currentCount;
     public override void Dispose()
     {
         _currentCount.Dispose();
     }
-    protected override void Next()
+    public override void Next(CounterState state)
     {
-        _currentCount.OnNext(new CounterViewModel(_state.Value.Count));
+        _currentCount.OnNext(new CounterViewModel(state.Count));
     }
 
     public override CounterViewModel Get()
@@ -22,8 +22,8 @@ public record CounterSelector : ReactiveSelector<IState<CounterState>, CounterVi
         return _currentCount.Value;
     }
 
-    public CounterSelector(IState<CounterState> state) : base(state)
+    public CounterSelector(CounterState state) : base()
     {
-        _currentCount = new BehaviorSubject<CounterViewModel>(new CounterViewModel(_state.Value.Count));
+        _currentCount = new BehaviorSubject<CounterViewModel>(new CounterViewModel(state.Count));
     }
 }

@@ -21,8 +21,7 @@ builder.Services.AddFluxor(options =>
 });
 
 
-builder.Services.AddTransient<CounterSelector>();
-builder.Services.AddTransient(typeof(AppSelector<,,>));
+builder.Services.AddScoped(typeof(AppSelector<,,>));
 
 await builder.Build().RunAsync();
 

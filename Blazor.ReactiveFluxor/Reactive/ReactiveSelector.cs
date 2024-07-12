@@ -2,14 +2,7 @@ namespace Blazor.ReactiveFluxor.Reactive;
 
 public abstract record ReactiveSelector<TState, TViewModel>: IDisposable
 {
-    protected readonly TState _state;
-
-    protected ReactiveSelector(TState state)
-    {
-        _state = state;
-    }
-    
     public abstract void Dispose();
-    protected abstract void Next();
+    public abstract void Next(TState state);
     public abstract TViewModel Get();
 }

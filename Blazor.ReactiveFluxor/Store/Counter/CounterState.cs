@@ -4,7 +4,7 @@ using Fluxor;
 namespace Blazor.ReactiveFluxor.Store.Counter;
 
 [FeatureState]
-public record CounterState
+public record CounterState 
 {
     public int Count { get; init; } = 0;
 }
